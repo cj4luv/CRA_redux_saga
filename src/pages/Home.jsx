@@ -1,49 +1,47 @@
-import React, { PureComponent } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Board } from '../components';
-import { loadUser } from '../actions';
+import { changePosts } from '../actions';
 
+const Home = (props) => {
+  const { getPosts, posts } = props;
 
-class Home extends PureComponent {
-  componentDidMount() {
-    const { getUserData } = this.props;
-    getUserData('cj4luv');
-  }
+  useEffect(() => {
+    getPosts();
+  }, []);
 
-  render() {
-    const { users } = this.props;
-    console.log('users', users);
+  console.log('posts', posts);
 
-    return (
-      <>
-        <Board />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Board />
+    </>
+  );
+};
 
 Home.propTypes = {
-  users: PropTypes.shape({}),
-  getUserData: PropTypes.func.isRequired,
+  posts: PropTypes.shape({}),
+  getPosts: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
-  users: null,
+  posts: null,
 };
 
 const mapStateToProps = (state) => {
-  const { entities: { users } } = state;
+  const { posts } = state;
 
   return {
-    users,
+    posts,
   };
 };
 
 // props 로 넣어줄 액션 생성함수
 const mapDispatchToProps = (dispatch) => ({
-  getUserData: (id) => dispatch(loadUser(id)),
+  getPosts: () => dispatch(changePosts()),
 });
 
 

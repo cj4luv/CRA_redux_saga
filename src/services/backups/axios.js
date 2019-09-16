@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+const processErrorData = (err) => {
+  console.error('processErrorData 서버가 불안정합니다.', err);
+  const errData = {
+    status: -10000,
+    results: err,
+  };
+
+  return errData;
+};
+
 const processResponse = (res) => {
   try {
     const isReqeustFailed = res.status !== 200;
@@ -20,16 +30,6 @@ const processResponse = (res) => {
     console.log('processResponse error');
     return processErrorData(error);
   }
-};
-
-const processErrorData = (err) => {
-  console.error('processErrorData 서버가 불안정합니다.', err);
-  const errData = {
-    status: -10000,
-    results: err,
-  };
-
-  return errData;
 };
 
 export const Get = async (url, config) => {

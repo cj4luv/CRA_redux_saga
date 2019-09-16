@@ -1,55 +1,49 @@
+/* eslint-disable no-unused-vars */
 import {
   call,
   fork,
-  put,
   all,
   take,
-  // select,
+  put,
 } from 'redux-saga/effects';
 import * as actions from '../actions';
-import api from '../services';
-// import { getUser } from '../reducers/selectors';
 
-const { user } = actions;
+import endpoints from '../services/endpoints';
+import callApi from '../services/api';
+
+const { changePosts } = actions;
 
 /** *************************** Subroutines *********************************** */
 
-function* fetchEntity(entity, apiFn, apiInit) {
-  yield put(entity.request(apiInit));
-  const { response, error } = yield call(apiFn, apiInit);
+function* loadPosts() {
+  const apiInit = {
+    method: 'get',
+    url: endpoints.posts,
+  };
+
+  const response = yield call(callApi, apiInit);
+  console.log('loadPosts res', response);
+
   if (response) {
-    yield put(entity.success(apiInit, response));
-    // console.log('success');
-  } else yield put(entity.failure(apiInit, error));
-}
-
-// yeah! we can also bind Generators
-export const fetchUser = fetchEntity.bind(null, user, api.fetchUser);
-
-// load user unless it is cached
-function* loadUser(login) {
-  yield call(fetchUser, login);
+    yield put(changePosts(response));
+  }
 }
 
 /** *************************************************************************** */
 /** ***************************** WATCHERS ************************************ */
 /** *************************************************************************** */
 
-// Fetches data for a User : user data
-export function* watchLoadUser() {
+export function* watchLoadPosts() {
   while (true) {
-    console.log('watchLoadUser');
-    const { login } = yield take(actions.LOAD_USER);
-    console.log('login', login);
+    const { posts } = yield take(actions.POSTS);
+    console.log('watchLoadPosts', posts);
 
-    yield fork(loadUser, login);
+    yield call(loadPosts);
   }
 }
 
-// notice how we now only export the rootSaga
-// single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
-    fork(watchLoadUser),
+    fork(watchLoadPosts),
   ]);
 }

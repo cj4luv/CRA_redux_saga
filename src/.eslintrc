@@ -39,6 +39,7 @@
       0,
       "windows"
     ],
+    "react-hooks/exhaustive-deps": 0,
     "no-alert": 0,
     "no-console": 0
   }

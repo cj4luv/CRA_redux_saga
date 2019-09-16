@@ -1,2 +1,2 @@
 export { default as ButtonContainer } from './ButtonContainer';
-export { default as ButtonContainers } from './ButtonContainer';
+export { default as TableHooks } from './TableHooks';
