@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import { ButtonContainer } from '../containers';
 import { Board } from '../components';
 import { loadUser } from '../actions';
 
@@ -15,14 +14,10 @@ class Home extends PureComponent {
 
   render() {
     const { users } = this.props;
-
     console.log('users', users);
-
-    // if (!users) return <p>get data...</p>;
 
     return (
       <>
-        {/* <ButtonContainer /> */}
         <Board />
       </>
     );

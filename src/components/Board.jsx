@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Dropdown, Form, Breadcrumb,
+  Button, Dropdown, Form, Breadcrumb, InputGroup, ButtonGroup, ButtonToolbar, Row, Table,
 } from 'react-bootstrap';
 
 import BsTable from './BsTable';
@@ -10,27 +10,27 @@ const Board = () => (
   <div className="theme-body">
     {/* theme-contents */}
     <main className="theme-contents contents-mt">
-      <div className="row flex-column flex-md-row justify-content-md-between align-items-md-center mb-6 no-gutters">
+      <Row className="flex-column flex-md-row justify-content-md-between align-items-md-center mb-6 no-gutters">
         <div className="order-md-2">
-          <Breadcrumb className="breadcrumb mb-0 p-0 bg-transparent">
-            <Breadcrumb.Item className="breadcrumb-item">홈</Breadcrumb.Item>
-            <Breadcrumb.Item className="breadcrumb-item active" aria-current="page">라이브러리</Breadcrumb.Item>
+          <Breadcrumb className="mb-0 p-0 bg-transparent">
+            <Breadcrumb.Item>홈</Breadcrumb.Item>
+            <Breadcrumb.Item active aria-current="page">라이브러리</Breadcrumb.Item>
           </Breadcrumb>
         </div>
         <div className="order-md-1 mt-3 mt-md-0">
           <div className="h2 font-weight-normal mb-0">주문관리</div>
         </div>
-      </div>
+      </Row>
       {/* list toolbar */}
       <div className="list d-flex justify-content-xl-between flex-xl-row flex-md-column flex-column mb-3">
-        <div className="btn-toolbar mb-xl-0 col-md-12 col-xl-9 p-0">
+        <ButtonToolbar className="mb-xl-0 col-md-12 col-xl-9 p-0">
 
-          <div className="btn-group col-12 col-md-6 col-xl-4 mb-2 p-0" style={{ minWidth: 305, height: 38 }}>
+          <ButtonGroup className="col-12 col-md-6 col-xl-4 mb-2 p-0" style={{ minWidth: 305, height: 38 }}>
             <div className="d-flex col-12 align-items-center border border-dark rounded-lg p-0 bg-neo">
-              <div className="input-group float-left mr-1" style={{ width: '50%' }}>
-                <input
+              <InputGroup className="float-left mr-1" style={{ width: '50%' }}>
+                <Form.Control
                   type="text"
-                  className="form-control start-date pr-0 bg-neo border-0 text-white"
+                  className="start-date pr-0 bg-neo border-0 text-white"
                   placeholder="YYYY/MM/DD"
                 />
                 <span className="ml-1 mr-2">
@@ -41,7 +41,7 @@ const Board = () => (
                     />
                   </span>
                 </span>
-              </div>
+              </InputGroup>
               <div className="float-left text-center" style={{ width: '2%' }}>
                 <div
                   className="mx-auto"
@@ -53,10 +53,10 @@ const Board = () => (
                   }}
                 />
               </div>
-              <div className="input-group float-left" style={{ width: '50%' }}>
-                <input
+              <InputGroup className="float-left" style={{ width: '50%' }}>
+                <Form.Control
                   type="text"
-                  className="form-control end-date pr-0 bg-neo border-0 text-white"
+                  className="end-date pr-0 bg-neo border-0 text-white"
                   placeholder="YYYY/MM/DD"
                 />
                 <span className="ml-1 mr-2">
@@ -67,9 +67,9 @@ const Board = () => (
                     />
                   </span>
                 </span>
-              </div>
+              </InputGroup>
             </div>
-          </div>
+          </ButtonGroup>
 
           <Dropdown className="btn-group mb-2 col-6 col-sm-6 col-md-1 p-0" style={{ minWidth: 96 }}>
             <Dropdown.Toggle
@@ -108,12 +108,12 @@ const Board = () => (
             <Button type="button" className="form-search-cancel"><i className="glyphicons-cancel" /></Button>
           </Form>
 
-        </div>
+        </ButtonToolbar>
 
         <div className="d-flex justify-content-end justify-content-md-end">
           <div className="list-before-checked">
-            <Button type="button" className="btn btn-dark icon-only">
-                상품추가
+            <Button type="button" variant="dark" className="icon-only">
+              상품추가
               <span className="glyphicons-add" aria-hidden="true" />
               <span className="sr-only">ADD</span>
             </Button>
@@ -123,16 +123,16 @@ const Board = () => (
               <span className="countChecked">0</span>
                 개 선택됨
             </span>
-            <Button type="button" className="btn btn-light mr-2">취소</Button>
-            <Button type="button" className="btn btn-primary">삭제</Button>
+            <Button variant="light" className="mr-2">취소</Button>
+            <Button>삭제</Button>
           </div>
         </div>
       </div>
 
       {/* /list toolbar */}
-      <div className="table-responsive mb-4 mb-md-7 uxs-check-all-container">
+      <Table responsive className="mb-4 mb-md-7 uxs-check-all-container">
         <BsTable />
-      </div>
+      </Table>
 
       <div className="d-flex position-relative justify-content-between align-items-md-center flex-column flex-md-row">
         <div className="d-flex align-items-center mb-3">

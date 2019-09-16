@@ -1,0 +1,29 @@
+//
+// Override tooltip
+//
+.bs-tooltip-top {
+  .arrow {
+    bottom: 1px;
+  }
+}
+
+.bs-tooltip-right {
+  .arrow {
+    left: 1px;
+  }
+}
+
+.bs-tooltip-bottom {
+  .arrow {
+    top: 1px;
+  }
+}
+
+.bs-tooltip-left {
+  .arrow {
+    right: 1px;
+  }
+}
+.tooltip-inner {
+  border: 1px solid $tooltip-border-color;
+}

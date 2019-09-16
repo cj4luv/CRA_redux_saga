@@ -1,0 +1,113 @@
+//
+// Override alert
+//
+.alert-heading {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.alert-icon {
+  &::before {
+    @extend .icomoon;
+
+    position: relative;
+    top: 0.125rem;
+    margin-right: 0.4375rem;
+    font-size: 1.25rem;
+    vertical-align: top;
+  }
+}
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    border-color: transparent;
+
+    .close {
+      height: 100%;
+      border-radius: 0.25rem;
+
+      @include hover {
+        color: $whiter87;
+        background-color: $alert-close-hover-bg;
+      }
+      &:not(:disabled):not(.disabled) {
+        &:focus {
+          box-shadow: 0 0 0 $alert-focus-width rgba(255, 255, 255, .5);
+        }
+      }
+    }
+    color: $contextual-text-color;
+
+    @if $color == primary {
+      background-color: $contextual-primary-bg-color;
+
+      .alert-link {
+        color: $contextual-primary-color;
+      }
+    } @else if $color == secondary {
+      background-color: $contextual-secondary-bg-color;
+
+      .alert-link {
+        color: $contextual-secondary-color;
+      }
+    } @else if $color == success {
+      background-color: $contextual-success-bg-color;
+
+      &.alert-icon {
+        &::before {
+          content: "\e917";
+        }
+      }
+      .alert-link {
+        color: $contextual-success-color;
+      }
+    } @else if $color == danger {
+      background-color: $contextual-danger-bg-color;
+
+      &.alert-icon {
+        &::before {
+          content: "\e918";
+        }
+      }
+      .alert-link {
+        color: $contextual-danger-color;
+      }
+    } @else if $color == info {
+      background-color: $contextual-info-bg-color;
+
+      &.alert-icon {
+        &::before {
+          content: "\e91a";
+        }
+      }
+      .alert-link {
+        color: $contextual-info-color;
+      }
+    } @else if $color == warning {
+      background-color: $contextual-warning-bg-color;
+
+      &.alert-icon {
+        &::before {
+          content: "\ea1a";
+        }
+      }
+      .alert-link {
+        color: $contextual-warning-color;
+      }
+    } @else if $color == light {
+      background-color: $contextual-light-bg-color;
+
+      .alert-link {
+        color: $contextual-light-color;
+      }
+    } @else if $color == dark {
+      background-color: $contextual-dark-bg-color;
+
+      .alert-link {
+        color: $contextual-dark-color;
+      }
+    }
+
+    .alert-link {
+      background-color: transparent;
+    }
+  }
+}

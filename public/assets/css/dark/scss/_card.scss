@@ -1,0 +1,175 @@
+//
+// Override card(accordion)
+//
+.card {
+  .card-header,
+  .card-footer {
+    background-color: $card-header-bg;
+  }
+  .card-title {
+    color: $card-title-color;
+    font-size: $card-title-size;
+  }
+  .card-body {
+    color: $card-body-color;
+    background-color: $card-body-bg-color;
+  }
+  .card-link {
+    color: $primary-1;
+  }
+  &.text-white {
+    .card-header {
+       color: $card-title-color;
+    }
+    .card-text {
+      color: $card-white-card-text-color;
+
+      small {
+        color: $card-white-card-small-color;
+      }
+    }
+    .card-title,
+    .card-body {
+      color: $card-white-color !important;
+
+      small {
+        color: $card-white-card-small-color !important;
+      }
+    }
+  }
+}
+@each $color, $value in $theme-colors {
+  .card {
+    &.bg-#{$color} {
+      .card-text {
+        color: $card-title-color;
+      }
+      @if $color == primary {
+        .card-header {
+          background-color: $card-header-primary-bg;
+        }
+        .card-body {
+          background-color: $primary;
+        }
+      } @else if $color == secondary {
+        .card-header {
+          background-color: $card-header-secondary-bg;
+        }
+        .card-body {
+          background-color: $secondary;
+        }
+      } @else if $color == success {
+        .card-header {
+          background-color: $card-header-success-bg;
+        }
+        .card-body {
+          background-color: $success;
+        }
+      } @else if $color == danger {
+        .card-header {
+          background-color: $card-header-danger-bg;
+        }
+        .card-body {
+          background-color: $danger;
+        }
+      } @else if $color == info {
+        .card-header {
+          background-color: $card-header-info-bg;
+        }
+        .card-body {
+          background-color: $info;
+        }
+      } @else if $color == warning {
+        .card-header {
+          background-color: $card-header-warning-bg;
+        }
+        .card-title {
+          color: $card-warning-title-color !important;
+        }
+        .card-body {
+          background-color: $warning;
+        }
+        .card-body,
+        .card-text {
+          color: $card-warning-body-color !important;
+        }
+      } @else if $color == light {
+        background-color: transparent !important;
+
+        .card-body {
+          background-color: $light;
+        }
+        .card-title {
+          color: $card-warning-title-color !important;
+        }
+        .card-body,
+        .card-text {
+          color: $card-warning-body-color !important;
+        }
+      } @else if $color == dark {
+        .card-header {
+          background-color: $card-header-dark-bg;
+        }
+        .card-body {
+          background-color: $dark;
+        }
+      }
+    }
+  }
+}
+
+.collapse,
+.collapsing {
+  .card-body {
+    color: $card-collapse-body-color;
+  }
+}
+
+.accordion {
+  > .card {
+    overflow: hidden;
+
+    .card-header {
+      padding: 0;
+      margin-bottom: -$accordion-card-border-width;
+      background-color: $accordion-card-header-bg;
+
+      &::after {
+        display: block;
+        position: absolute;
+        right: 15px;
+        top: 14px;
+        width: 20px;
+        height: 20px;
+        background: no-repeat 50% / 20px;
+        background-image: $accordion-card-icon;
+        content: "";
+        transition: transform 0.2s ease;
+      }
+      &.active::after {
+        transform: rotate(180deg);
+      }
+      .btn {
+        vertical-align: top;
+
+        &.btn-link {
+          width: 100%;
+          padding: $accordion-card-spacer-y $accordion-card-spacer-x;
+          color: $accordion-card-header-color;
+          text-align: left;
+
+          @include hover {
+            color: $accordion-card-header-color;
+          }
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+    .card-body {
+      border-top: 1px solid $accordion-card-border-color;
+      padding: $accordion-card-spacer;
+    }
+  }
+}

@@ -6,6 +6,8 @@ import {
   Dropdown,
   FormCheck,
   Form,
+  Badge,
+  ButtonGroup,
 } from 'react-bootstrap';
 
 /**
@@ -35,8 +37,8 @@ const Row = ({ id, idx }) => (
     <td className="position-relative">
       <Dropdown>
         <Dropdown.Toggle
-          className="btn text-left btn-dark btn-md dropdown-toggle"
-          variant="success"
+          className="text-left btn-md"
+          variant="dark"
         >
         디지털/가전
         </Dropdown.Toggle>
@@ -49,7 +51,7 @@ const Row = ({ id, idx }) => (
       </Dropdown>
     </td>
     <td>
-      <Form.Control type="text" className="form-control text-light" id="input2" defaultValue="마이크로소프트 Window 10 OS" />
+      <Form.Control type="text" className="text-light" id="input2" defaultValue="마이크로소프트 Window 10 OS" />
     </td>
     <td>45,000원</td>
     <td>
@@ -59,22 +61,22 @@ const Row = ({ id, idx }) => (
         </div>
         <div>
           <div>
-            <span className="badge badge-pill badge-success" style={{ width: 48 }}>안정</span>
+            <Badge variant="success" pill style={{ width: 48 }}>안정</Badge>
           </div>
         </div>
       </div>
     </td>
     <td>
-      <div className="btn-group">
-        <Button type="button" className="btn btn-ghost-primary icon-only" data-toggle="modal" data-target="#exampleModalCenter">
+      <ButtonGroup>
+        <Button variant="ghost-primary" className="icon-only" data-toggle="modal" data-target="#exampleModalCenter">
           <span className="glyphicons-outline_delete" aria-hidden="true" />
           <span className="sr-only">delete</span>
         </Button>
-        <Button type="button" className="btn btn-ghost-primary icon-only" data-toggle="modal" data-target="#exampleModalCenter2">
+        <Button variant="ghost-primary" className="icon-only" data-toggle="modal" data-target="#exampleModalCenter2">
           <span className="glyphicons-add" aria-hidden="true" />
           <span className="sr-only">add</span>
         </Button>
-      </div>
+      </ButtonGroup>
     </td>
   </tr>
 );

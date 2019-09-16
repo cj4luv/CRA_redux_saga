@@ -1,0 +1,70 @@
+//
+// Base styles
+//
+.text-white {
+  color: $white !important;
+
+  .bg-dark & {
+    color: $bg-dark-text-white  !important;
+  }
+}
+.text-white-87 {
+  // rgba(255, 255, 255, .87);
+  color: $text-white-87 !important;
+}
+.text-white-6 {
+  // rgba(255, 255, 255, .6);
+  color: $text-white-6 !important;
+}
+.text-white-38 {
+  // rgba(255, 255, 255, .38);
+  color: $text-white-38 !important;
+}
+.text-black-87 {
+  // rgba(0, 0, 0, .87);
+  color: $text-black-87 !important;
+}
+.text-black-6 {
+  // rgba(0, 0, 0, .6);
+  color: $text-black-6 !important;
+}
+.text-black-38 {
+  // rgba(0, 0, 0, .38);
+  color: $text-black-38 !important;
+}
+.text-grays-9 {
+  // #121212;
+  color: $text-grays-9 !important;
+}
+.text-grays-8 {
+  // #1c1c1c;
+  color: $text-grays-8 !important;
+}
+.text-grays-7 {
+  // #272727;
+  color: $text-grays-7 !important;
+}
+.text-grays-6 {
+  // #383838;
+  color: $text-grays-6 !important;
+}
+.text-grays-5 {
+  // #4d4d4d;
+  color: $text-grays-5 !important;
+}
+.text-grays-4 {
+  // #5e5e5e;
+  color: $text-grays-4 !important;
+}
+.text-grays-3 {
+  // #6e6e6e;
+  color: $text-grays-3 !important;
+}
+.text-grays-2 {
+  // #7e7e7e;
+  color: $text-grays-2 !important;
+}
+.text-grays-1 {
+  // #909090
+  color: $text-grays-1 !important;
+}

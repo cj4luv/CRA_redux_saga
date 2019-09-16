@@ -1,0 +1,263 @@
+.placeholder {
+	color: rgba(255, 255, 255, .38) !important;
+}
+
+div[contenteditable] {
+    outline: 1px solid transparent;
+}
+
+.cke_textarea_inline {
+    padding: 10px 16px;
+    height: 200px;
+    overflow: auto;
+    -webkit-appearance: textfield;
+}
+
+span.cke_button__bold_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__italic_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__strike_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__numberedlist_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__bulletedlist_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__outdent_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__indent_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__link_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__unlink_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__image_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+span.cke_button__codesnippet_icon {
+    background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important;
+}
+
+.cke_toolbar_separator {
+    background-color: #616161!important;
+}
+
+.cke_toolbar_end:after {
+    border-right: 1px solid #616161!important;
+}
+
+.cke_chrome {
+    border: 1px solid #272727!important;
+}
+
+.cke_top {
+    border-bottom: 1px solid #272727!important;
+    background: #121212!important;
+}
+
+.cke_float .cke_top {
+    border: 1px solid #272727!important;
+}
+
+.cke_bottom {
+    border-top: 1px solid #272727!important;
+}
+
+.cke_combo:after {
+    border-right: 1px solid #616161!important;
+}
+
+.cke_rtl .cke_combo:after {
+    border-left: 1px solid #616161!important;
+}
+
+.cke_toolgroup a.cke_button:last-child:after,
+.cke_toolgroup a.cke_button.cke_button_disabled:hover:last-child:after {
+    border-right: 1px solid #616161!important;
+}
+
+.cke_rtl .cke_toolgroup a.cke_button:last-child:after,
+.cke_rtl .cke_toolgroup a.cke_button.cke_button_disabled:hover:last-child:after {
+    border-left: 1px solid #616161!important;
+} 
+
+.cke_editable {
+    color : #dedede;
+    background: #272727;
+}
+
+.cke_button_label {
+    background: #272727!important;
+}
+
+.cke_combo_text {
+    color : #999!important;
+}
+
+.cke_combo_button:focus {
+    background-color : #000!important;
+}
+
+.cke_combo_arrow {
+    border-top: 3px solid #999!important;
+}
+
+a.cke_button_on {
+    background: #383838!important;
+    border: 1px #bcbcbc solid!important;
+}
+
+a.cke_button_off:hover,
+a.cke_button_off:focus
+a.cke_button_off:active {
+    background: #272727!important;
+}
+
+.cke_combo_on a.cke_combo_button,
+.cke_combo_off
+a.cke_combo_button:hover, .cke_combo_off
+a.cke_combo_button:focus, .cke_combo_off
+a.cke_combo_button:active {
+	background:#272727!important;
+}
+
+.che_combo_on a.cke_combo_button,
+.cke_combo_off
+a.cke_combo_button:active {
+	background:#272727!important;
+}
+
+.cke_combo .cke_combo__format .cke_combo_on {
+    background: #272727!important;
+}
+
+
+
+
+
+
+
+
+.cke_dialog_title {
+    background: #1c1c1c!important;
+    color: #dedede!important;
+    border-bottom: 1px solid #383838!important;
+}
+
+.cke_dialog_body {
+    background: #1c1c1c!important;
+}
+
+.cke_dialog_body label {
+    color: #dedede!important;
+    background: #1c1c1c!important;
+}
+
+.cke_dialog_contents {
+    background: #1c1c1c!important;
+}
+
+.cke_dialog_footer {
+    background: #1c1c1c!important;
+    border-top: 1px solid #383838!important;
+}
+
+a.cke_dialog_ui_button {
+    border: solid 1px #383838!important;
+    background : #383838!important;
+    color: #fff!important;
+}
+
+a.cke_dialog_ui_button_ok {
+    border-radius: 4px!important;
+    background-color: #386f91!important;
+}
+
+.cke_dialog_contents {
+
+    border-top: 1px solid #383838!important;
+}
+
+a.cke_dialog_tab {
+    border: 1px solid #383838!important;
+    background : #272727!important;
+}
+
+input.cke_dialog_ui_input_text, input.cke_dialog_ui_input_password, input.cke_dialog_ui_input_tel, textarea.cke_dialog_ui_input_textarea {
+    border: 1px solid #383838!important;
+    color : #dedede!important;
+    background : #272727!important;
+}
+
+select.cke_dialog_ui_input_select {
+    color : #dedede!important;
+    background : #272727!important;
+}
+
+a.cke_dialog_tab_selected {
+
+    color : #dedede!important;
+    background : #383838!important;
+}
+
+a.cke_dialog_ui_fileButton {
+    background: #272727!important;
+    border: 1px solid #aaaaaf!important;
+    border-radius: 4px!important;
+}
+
+span.cke_dialog_ui_button {
+    color : #dedede!important;
+}
+
+h1.cke_panel_grouptitle {
+    background : #383838!important;
+    color : #dedede!important;
+}
+
+div.cke_panel_block {
+    color : #dedede!important;
+    background : #272727!important;
+}
+
+ul.cke_panel_list {
+    color : #dedede!important;
+    background : #272727!important;
+}
+
+.cke_panel_listItem {
+
+    background : #272727!important;
+}
+
+.cke_panel_listItem.cke_selected a, .cke_panel_listItem a:hover, .cke_panel_listItem a:focus, .cke_panel_listItem a:active {
+    background : #4d4d4d!important;
+    color: #fff;
+}
+
+form input[type="file"] {
+    color: #fff!important;
+}
+
+
+
+

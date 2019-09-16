@@ -1,0 +1,11 @@
+//
+// Override breadcrumb
+//
+.breadcrumb {
+	a {
+		color: $breadcrumb-link-color;
+	}
+  &.breadcrumb-sm {
+    padding: $breadcrumb-padding-y-sm $breadcrumb-padding-x;
+  }
+}

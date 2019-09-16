@@ -16308,8 +16308,8 @@ div.table-responsive > div.dataTables_wrapper > div.row {
 
 @font-face {
   font-family: 'icomoon';
-  /* src: url("../../fonts/vendor/icomoon/icomoon.eot?udjz63"); */
-  /* src: url("../../fonts/vendor/icomoon/icomoon.eot?udjz63#iefix") format("embedded-opentype"), url("../../fonts/vendor/icomoon/icomoon.ttf?udjz63") format("truetype"), url("../../fonts/vendor/icomoon/icomoon.woff?udjz63") format("woff"), url("../../fonts/vendor/icomoon/icomoon.svg?udjz63#icomoon") format("svg"); */
+  src: url("/assets/fonts/vendor/icomoon/icomoon.eot?udjz63");
+  src: url("/assets/fonts/vendor/icomoon/icomoon.eot?udjz63#iefix") format("embedded-opentype"), url("/assets/fonts/vendor/icomoon/icomoon.ttf?udjz63") format("truetype"), url("/assets/fonts/vendor/icomoon/icomoon.woff?udjz63") format("woff"), url("/assets/fonts/vendor/icomoon/icomoon.svg?udjz63#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 .icomoon, table.dataTable thead .sorting:before,
@@ -18001,38 +18001,38 @@ div[contenteditable] {
   overflow: auto;
   -webkit-appearance: textfield; }
 
-/* span.cke_button__bold_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+span.cke_button__bold_icon {
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__italic_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__strike_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__numberedlist_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__bulletedlist_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__outdent_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__indent_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__link_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__unlink_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__image_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; }
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 span.cke_button__codesnippet_icon {
-  background-image: url(../../img/vendor/ckeditor/icons-dark.png) !important; } */
+  background-image: url(/assets/img/vendor/ckeditor/icons-dark.png) !important; }
 
 .cke_toolbar_separator {
   background-color: #616161 !important; }

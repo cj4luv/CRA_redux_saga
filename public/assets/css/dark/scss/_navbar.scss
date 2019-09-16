@@ -1,0 +1,31 @@
+//
+// Override navbar
+//
+// Navbar
+.navbar {
+  &.bg-light {
+    background-color: $navbar-bg-light !important;
+  }
+
+  &.navbar-dark {
+    .navbar-toggler-icon {
+      &.active {
+        background-image: $navbar-dark-toggler-icon-active-bg;
+      }
+    }
+  }
+  &.navbar-light {
+    .navbar-toggler-icon {
+      &.active {
+        background-image: $navbar-light-toggler-icon-active-bg;
+      }
+    }
+  }
+
+  .show > .nav-link,
+  .active > .nav-link,
+  .nav-link.show,
+  .nav-link.active {
+    font-weight: bold;
+  }
+}

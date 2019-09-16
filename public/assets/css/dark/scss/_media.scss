@@ -1,0 +1,10 @@
+//
+// Override media
+//
+.media-body {
+  color: $media-body-color;
+
+  @include headings {
+  	color: $media-body-title-color;
+  }
+}
