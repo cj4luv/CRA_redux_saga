@@ -1,0 +1,46 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb"
+  ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "max-len": 0,
+    "react/prefer-stateless-function": [
+      2,
+      {
+        "ignorePureComponents": true
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      2,
+      {
+        "devDependencies": true
+      }
+    ],
+    "react/forbid-prop-types": 2,
+    "arrow-body-style": [
+      2,
+      "as-needed",
+      {
+        "requireReturnForObjectLiteral": false
+      }
+    ],
+    "no-confusing-arrow": [
+      2,
+      {
+        "allowParens": true
+      }
+    ],
+    "linebreak-style": [
+      0,
+      "windows"
+    ],
+    "no-alert": 0,
+    "no-console": 0
+  }
+
+}
