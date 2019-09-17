@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Board } from '../components';
-import { changePosts } from '../actions';
+import { POSTS } from '../actions';
 
-const Home = (props) => {
-  const { getPosts, posts } = props;
+const Home = () => {
+  const posts = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getPosts();
+    dispatch({ type: POSTS });
   }, []);
 
   console.log('posts', posts);
@@ -24,25 +25,10 @@ const Home = (props) => {
 
 Home.propTypes = {
   posts: PropTypes.shape({}),
-  getPosts: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
   posts: null,
 };
 
-const mapStateToProps = (state) => {
-  const { posts } = state;
-
-  return {
-    posts,
-  };
-};
-
-// props 로 넣어줄 액션 생성함수
-const mapDispatchToProps = (dispatch) => ({
-  getPosts: () => dispatch(changePosts()),
-});
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
