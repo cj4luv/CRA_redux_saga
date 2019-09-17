@@ -1,6 +1,10 @@
 import { camelizeKeys } from 'humps';
 import axios from 'axios';
 
+import { BASE_URL } from './endpoints';
+
+axios.defaults.baseURL = BASE_URL;
+
 async function callApi(axiosConfig) {
   try {
     const response = await axios(axiosConfig);
@@ -11,9 +15,13 @@ async function callApi(axiosConfig) {
     }
 
     const camelizedJson = camelizeKeys(data);
+    // console.log('camelizedJson', camelizedJson);
 
-    return camelizedJson;
+    const results = { response: camelizedJson };
+
+    return results;
   } catch (error) {
+    console.log('catched err');
     return { error: error || 'Something bad happened' };
   }
 }

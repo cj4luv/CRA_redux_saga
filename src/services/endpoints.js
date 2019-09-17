@@ -1,8 +1,12 @@
 // api url
-const SERVER_URL = 'https://jsonplaceholder.typicode.com';
+const SERVER_URL = 'http://223.62.241.90/';
+
+const PROJECT_NAME = 'uxs';
+
+export const BASE_URL = `${SERVER_URL}${PROJECT_NAME}`;
 
 const endpoints = {
-  posts: `${SERVER_URL}/posts`,
+  posts: '/landing/board/getBoardList.do',
 };
 
 export default endpoints;
