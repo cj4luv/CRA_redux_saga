@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
-// import { Board } from '../components';
 import { LOAD_POSTS } from '../actions';
 
 const Home = () => {
@@ -41,14 +39,6 @@ const Home = () => {
       <p>show data...</p>
     </>
   );
-};
-
-Home.propTypes = {
-  posts: PropTypes.shape({}),
-};
-
-Home.defaultProps = {
-  posts: null,
 };
 
 export default Home;
