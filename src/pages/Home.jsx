@@ -4,6 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { LOAD_POSTS } from '../actions';
 
+const styles = {
+  topBox: {
+    display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 100,
+  },
+};
+
 const Home = () => {
   const postsData = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -17,7 +23,11 @@ const Home = () => {
 
   if (isFetching || !response) {
     console.log('loading....');
-    return <p>loading</p>;
+    return (
+      <div style={styles.topBox}>
+        now loading...
+      </div>
+    );
   }
 
   const isEmptyData = response && response.boardList && response.boardList.length === 0;
@@ -48,9 +58,9 @@ const Home = () => {
   const renderBoardList = boardList.map((item) => renderRow(item.boardSeq, item.title));
 
   return (
-    <>
+    <div style={styles.topBox}>
       {renderBoardList}
-    </>
+    </div>
   );
 };
 

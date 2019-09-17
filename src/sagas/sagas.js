@@ -5,6 +5,7 @@ import {
   all,
   take,
   put,
+  delay,
 } from 'redux-saga/effects';
 import * as actions from '../actions';
 
@@ -26,6 +27,7 @@ function* fetchEntity(entity, apiFn, apiInit) {
   // console.log('response call =-==--', response);
   if (response) {
     // console.log('success');
+    yield delay(3000);
     yield put(entity.success(apiInit, response));
   } else yield put(entity.failure(apiInit, error));
 }
