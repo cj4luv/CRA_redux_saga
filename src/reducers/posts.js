@@ -1,5 +1,5 @@
 import {
-  POSTS,
+  LOAD_POSTS,
   POSTS_REQUEST,
   POSTS_SUCCESS,
   POSTS_FAILURE,
@@ -9,14 +9,14 @@ import {
 const initialState = {
   apiInit: '',
   isFetching: false,
-  response: {},
+  response: null,
   error: null,
 };
 
 // **** 리듀서 작성
 export default function posts(state = initialState, action) {
   switch (action.type) {
-    case POSTS:
+    case LOAD_POSTS:
       return {
         ...state,
         ...action.posts,

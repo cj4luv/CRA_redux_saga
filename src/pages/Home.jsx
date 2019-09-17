@@ -3,22 +3,42 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Board } from '../components';
-import { POSTS } from '../actions';
+// import { Board } from '../components';
+import { LOAD_POSTS } from '../actions';
 
 const Home = () => {
-  const posts = useSelector((state) => state.posts);
+  const postsData = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: POSTS });
+    dispatch({ type: LOAD_POSTS });
   }, []);
 
-  console.log('posts', posts);
+  const { isFetching, response, error } = postsData;
+  if (isFetching) {
+    console.log('loading....');
+    return <p>loading</p>;
+  }
+
+  const isEmptyData = response && response.boardList && response.boardList.length === 0;
+  const isRenderEmpty = !isFetching && isEmptyData;
+  if (isRenderEmpty) {
+    console.log('empty');
+    return <p>empty</p>;
+  }
+
+  const isRenderError = !isFetching && error;
+  if (isRenderError) {
+    console.log('error', error);
+
+    return <p>{error}</p>;
+  }
+
+  console.log('postsData', postsData);
 
   return (
     <>
-      <Board />
+      <p>show data...</p>
     </>
   );
 };

@@ -58,7 +58,7 @@ function* loadPosts() {
 
 export function* watchLoadPosts() {
   while (true) {
-    const { posts } = yield take(actions.POSTS);
+    const { posts } = yield take(actions.LOAD_POSTS);
     console.log('watchLoadPosts', posts);
 
     yield call(loadPosts);
