@@ -13,7 +13,9 @@ const Home = () => {
   }, []);
 
   const { isFetching, response, error } = postsData;
-  if (isFetching) {
+
+
+  if (isFetching || !response) {
     console.log('loading....');
     return <p>loading</p>;
   }
@@ -34,9 +36,20 @@ const Home = () => {
 
   console.log('postsData', postsData);
 
+  const { boardList } = response;
+
+  const renderRow = (boardSeq, title) => (
+    <div style={{ display: 'flex' }} key={`boardList${boardSeq}`}>
+      <p>{boardSeq}</p>
+      <p>{title}</p>
+    </div>
+  );
+
+  const renderBoardList = boardList.map((item) => renderRow(item.boardSeq, item.title));
+
   return (
     <>
-      <p>show data...</p>
+      {renderBoardList}
     </>
   );
 };
