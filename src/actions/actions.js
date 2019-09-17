@@ -17,5 +17,4 @@ export const post = {
   failure: (apiInit, error) => action(POSTS_FAILURE, { apiInit, error }),
 };
 
-export const LOAD_POSTS = 'POSTS';
-export const loadPost = (posts) => ({ type: LOAD_POSTS, posts });
+export const LOAD_POSTS = 'LOAD_POSTS';
