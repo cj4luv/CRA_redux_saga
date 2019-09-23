@@ -41,7 +41,7 @@ function* loadPosts() {
   };
 
   const params = {
-    searchBoardType: 'bootstrap',
+    boardType: 'bootstrap',
   };
 
   const apiInit = {

@@ -55,13 +55,20 @@ const Home = () => {
     </div>
   );
 
-  const renderBoardList = boardList.map((item) => renderRow(item.boardSeq, item.title));
-
-  return (
-    <div style={styles.topBox}>
-      {renderBoardList}
-    </div>
-  );
+  try {
+    const renderBoardList = boardList.map((item) => renderRow(item.boardSeq, item.title));
+    return (
+      <div style={styles.topBox}>
+        {renderBoardList}
+      </div>
+    );
+  } catch {
+    return (
+      <div style={styles.topBox}>
+        {response.message}
+      </div>
+    );
+  }
 };
 
 export default Home;
