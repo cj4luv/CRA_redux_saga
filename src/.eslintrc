@@ -40,6 +40,8 @@
       "windows"
     ],
     "react-hooks/exhaustive-deps": 0,
+    "react/jsx-filename-extension": 0,
+    "no-use-before-define": 0,
     "no-alert": 0,
     "no-console": 0
   }
