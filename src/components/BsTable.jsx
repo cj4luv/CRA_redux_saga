@@ -103,7 +103,6 @@ const List = () => {
   return arr;
 };
 
-
 const BsTable = () => (
   <Table className="order-table table mb-0" style={{ minWidth: 680 }}>
     <thead>

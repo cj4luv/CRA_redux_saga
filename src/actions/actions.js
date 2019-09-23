@@ -1,7 +1,3 @@
-export const POSTS_REQUEST = 'POSTS_REQUEST';
-export const POSTS_SUCCESS = 'POSTS_SUCCESS';
-export const POSTS_FAILURE = 'POSTS_FAILURE';
-
 function action(type, payload = {}) {
   const result = {
     type,
@@ -10,6 +6,22 @@ function action(type, payload = {}) {
 
   return result;
 }
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const login = {
+  request: (apiInit) => action(LOGIN_REQUEST, { apiInit }),
+  success: (apiInit, response) => action(LOGIN_SUCCESS, { apiInit, response }),
+  failure: (apiInit, error) => action(LOGIN_FAILURE, { apiInit, error }),
+};
+
+export const LOAD_LOGIN = 'LOAD_LOGIN';
+
+export const POSTS_REQUEST = 'POSTS_REQUEST';
+export const POSTS_SUCCESS = 'POSTS_SUCCESS';
+export const POSTS_FAILURE = 'POSTS_FAILURE';
 
 export const post = {
   request: (apiInit) => action(POSTS_REQUEST, { apiInit }),
