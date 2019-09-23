@@ -6,7 +6,10 @@ import { LOAD_POSTS } from '../actions';
 
 const styles = {
   topBox: {
-    display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 100,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 100,
   },
 };
 
@@ -19,7 +22,6 @@ const Home = () => {
   }, []);
 
   const { isFetching, response, error } = postsData;
-
 
   if (isFetching || !response) {
     console.log('loading....');
@@ -34,7 +36,7 @@ const Home = () => {
   const isRenderEmpty = !isFetching && isEmptyData;
   if (isRenderEmpty) {
     console.log('empty');
-    return <p>empty</p>;
+    return <div style={styles.topBox}>empty</div>;
   }
 
   const isRenderError = !isFetching && error;

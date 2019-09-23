@@ -19,6 +19,11 @@ const getPostsApi = (apiInit) => callApi(apiInit);
 
 /** *************************** Subroutines *********************************** */
 
+/**
+ * @param {object} entity - request, success, failure 액션을 담은 구조체
+ * @param {function} apiFn - http call을 담당하는 함수
+ * @param {object} apiInit - api init 정보를 담는 변수
+ */
 function* fetchEntity(entity, apiFn, apiInit) {
   // console.log('fetchEntity', entity);
   yield put(entity.request(apiInit));
@@ -27,12 +32,12 @@ function* fetchEntity(entity, apiFn, apiInit) {
   // console.log('response call =-==--', response);
   if (response) {
     // console.log('success');
-    yield delay(3000);
+    yield delay(2000);
     yield put(entity.success(apiInit, response));
   } else yield put(entity.failure(apiInit, error));
 }
 
-// 3번째 api를 기입
+// apiInit 3번째 매개 변수는 sgaa effects의 call이 호출 되는 부분에서 정의된다.
 const fetchPosts = fetchEntity.bind(null, post, getPostsApi);
 
 function* loadPosts() {
@@ -51,6 +56,10 @@ function* loadPosts() {
     params,
   };
 
+  /**
+   * @param {function} fn - promise 펑션 (http call)
+   * @param {object} args - 첫번째 평선의 arguments로 들어간다.
+   */
   const response = yield call(fetchPosts, apiInit);
 }
 
