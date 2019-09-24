@@ -7,17 +7,20 @@ function action(type, payload = {}) {
   return result;
 }
 
-export const AUTH_REQUEST = 'AUTH_REQUEST';
-export const AUTH_SUCCESS = 'AUTH_SUCCESS';
-export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const SUCCESS_AUTH = 'SUCCESS_AUTH';
+export const sucessAuth = action(SUCCESS_AUTH);
 
-export const auth = {
-  request: (apiInit) => action(AUTH_REQUEST, { apiInit }),
-  success: (apiInit, response) => action(AUTH_SUCCESS, { apiInit, response }),
-  failure: (apiInit, error) => action(AUTH_FAILURE, { apiInit, error }),
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_FAILURE = 'REFRESH_TOKEN_FAILURE';
+
+export const refreshTokne = {
+  request: (apiInit) => action(REFRESH_TOKEN_REQUEST, { apiInit }),
+  success: (apiInit, response) => action(REFRESH_TOKEN_SUCCESS, { apiInit, response }),
+  failure: (apiInit, error) => action(REFRESH_TOKEN_FAILURE, { apiInit, error }),
 };
 
-export const LOAD_AUTH = 'LOAD_AUTH';
+export const LOAD_REFRESH_TOKEN = 'LOAD_REFRESH_TOKEN';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

@@ -6,39 +6,39 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { vaildToken } from '../common/AuthenticationUtils';
 
-import { Header, Maybe } from '../components';
-import { LOAD_AUTH } from '../actions';
+import { Header } from '../components';
+import { LOAD_REFRESH_TOKEN, LOAD_LOGIN } from '../actions';
 
 const Menu = ['가이드', '문서', '테마 & 패키지', 'UX 점검', '커뮤니티'];
 
 const DesktopLayout = ({ children }) => {
   const authData = useSelector((state) => state.auth);
+  const { isAuth } = authData;
+
   const dispatch = useDispatch();
 
-  const { isFetching, response, error } = authData;
+  const refreshTokneData = useSelector((state) => state.refreshTokne);
+  const { isFetching, response, error } = refreshTokneData;
 
-  const isLoding = isFetching || !response;
+  const isUseToken = vaildToken();
 
   useEffect(() => {
-    const isUseToken = vaildToken();
-
     if (isUseToken) {
-      dispatch({ type: LOAD_AUTH });
+      dispatch({ type: LOAD_REFRESH_TOKEN });
     }
   }, []);
 
+  const onLogin = () => {
+    console.log('object');
+    dispatch({ type: LOAD_LOGIN });
+  };
+
   return (
     <div style={DefaultWrapper}>
-      <Maybe test={isLoding}>
-        <div style={TopWarpper}>
-          now loading...
-        </div>
-      </Maybe>
-      <Maybe test={!isLoding}>
-        <div style={TopWarpper}>
-          <Header menu={Menu} />
-        </div>
-      </Maybe>
+
+      <div style={TopWarpper}>
+        <Header menu={Menu} isAuth={isAuth} onLogin={onLogin} />
+      </div>
 
       <div style={BottomWrapper}>
         <div style={Sidebar}>

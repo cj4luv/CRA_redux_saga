@@ -1,0 +1,47 @@
+import {
+  LOAD_REFRESH_TOKEN,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAILURE,
+} from '../actions/actions';
+
+// **** 초기상태 정의
+const initialState = {
+  apiInit: '',
+  isFetching: false,
+  response: null,
+  error: null,
+};
+
+// **** 리듀서 작성
+export default function auth(state = initialState, action) {
+  switch (action.type) {
+    case LOAD_REFRESH_TOKEN:
+      return {
+        ...state,
+        ...action.refreshToken,
+      };
+    case REFRESH_TOKEN_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        apiInit: action.apiInit,
+      };
+    case REFRESH_TOKEN_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        apiInit: action.apiInit,
+        response: action.response,
+      };
+    case REFRESH_TOKEN_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        apiInit: action.apiInit,
+        error: action.error,
+      };
+    default:
+      return state;
+  }
+}

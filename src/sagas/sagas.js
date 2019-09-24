@@ -6,7 +6,6 @@ import {
   take,
   put,
   delay,
-  cancel,
 } from 'redux-saga/effects';
 
 import { setCookie, getCookie, deleteCookie } from '../common/CookieUtils';
@@ -48,14 +47,16 @@ function* fetchEntity(entity, apiFn, apiInit) {
   return results;
 }
 
-const { post, login, auth } = actions;
+const {
+  post, login, refreshTokne, sucessAuth,
+} = actions;
 
 // apiInit 3번째 매개 변수는 sgaa effects의 call이 호출 되는 부분에서 정의된다.
-const fetchAuth = fetchEntity.bind(null, auth, callApi);
+const fetchAuth = fetchEntity.bind(null, refreshTokne, callApi);
 const fetchLogin = fetchEntity.bind(null, login, callApi);
 const fetchPosts = fetchEntity.bind(null, post, callApi);
 
-function* loadAuth() {
+function* loadFefresToken() {
   const token = getCookie(REFESH_TOKEN_COOKIE_NAME);
   const jwt = token || '';
 
@@ -73,10 +74,11 @@ function* loadAuth() {
   if (response) {
     console.log(response);
     try {
-      if (response.resultCode !== 20000000) throw response;
+      if (response.resultCode !== '20000000') throw response;
 
       updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
       updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
+      // isAuth라는 스토어에 로그인 값을 저장 한다.
     } catch (e) {
       console.log(e.message);
     }
@@ -105,9 +107,17 @@ function* loadLogin() {
 
   const { response } = yield call(fetchLogin, apiInit);
   if (response) {
-    console.log(response);
-    updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
-    updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
+    console.log('loadLogin', response);
+    try {
+      if (response.resultCode !== '20000000') throw response;
+
+      updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
+      updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
+
+      yield put(sucessAuth);
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 }
 
@@ -141,10 +151,10 @@ function* loadPosts() {
 /** ***************************** WATCHERS ************************************ */
 /** *************************************************************************** */
 
-export function* watchLoadAuth() {
+export function* watchLoadFefresToken() {
   while (true) {
-    yield take(actions.LOAD_AUTH);
-    yield fork(loadAuth);
+    yield take(actions.LOAD_REFRESH_TOKEN);
+    yield fork(loadFefresToken);
   }
 }
 
@@ -164,7 +174,7 @@ export function* watchLoadPosts() {
 
 export default function* rootSaga() {
   yield all([
-    fork(watchLoadAuth),
+    fork(watchLoadFefresToken),
     fork(watchLoadLogin),
     fork(watchLoadPosts),
   ]);
