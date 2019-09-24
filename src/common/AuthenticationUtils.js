@@ -14,8 +14,10 @@ export const decodeJwt = (jwt) => {
 export const isExpiredToken = (exp) => {
   const now = Date.now();
   const timestamp = exp * 1000;
-  const tokenExp = new Date(timestamp);
-  const isExpired = tokenExp < now;
+
+  console.log('token exp', timestamp, now);
+
+  const isExpired = timestamp < now;
   return isExpired;
 };
 
@@ -29,10 +31,10 @@ export const vaildToken = () => {
 
     if (isUseJwt) {
       const payload = decodeJwt(jwt);
-      const isExpired = isExpiredToken(payload.exp);
+      const isUseToken = !isExpiredToken(payload.exp);
 
-      console.log(isExpired);
-      return isExpired;
+      console.log(isUseToken);
+      return isUseToken;
     }
     return isUseJwt;
   } catch (e) {

@@ -78,7 +78,8 @@ function* loadFefresToken() {
 
       updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
       updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
-      // isAuth라는 스토어에 로그인 값을 저장 한다.
+
+      yield put(sucessAuth);
     } catch (e) {
       console.log(e.message);
     }
