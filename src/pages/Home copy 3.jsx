@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,12 +18,13 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('useEffect');
     // dispatch({ type: LOAD_POSTS });
   }, []);
 
   const { isFetching, response, error } = postsData;
 
-  // console.log('post data', postsData);
+  console.log('post data', postsData);
 
   if (isFetching) {
     console.log('loading....');

@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { vaildToken } from '../common/AuthenticationUtils';
 
 import { Header, Maybe } from '../components';
 import { LOAD_AUTH } from '../actions';
@@ -16,8 +20,11 @@ const DesktopLayout = ({ children }) => {
   const isLoding = isFetching || !response;
 
   useEffect(() => {
-    console.log('useEffect');
-    // dispatch({ type: LOAD_AUTH });
+    const isUseToken = vaildToken();
+
+    if (isUseToken) {
+      dispatch({ type: LOAD_AUTH });
+    }
   }, []);
 
   return (

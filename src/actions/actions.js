@@ -11,7 +11,7 @@ export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
 
-export const AUTH = {
+export const auth = {
   request: (apiInit) => action(AUTH_REQUEST, { apiInit }),
   success: (apiInit, response) => action(AUTH_SUCCESS, { apiInit, response }),
   failure: (apiInit, error) => action(AUTH_FAILURE, { apiInit, error }),
