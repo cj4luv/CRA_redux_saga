@@ -15,7 +15,7 @@ async function callApi(axiosConfig) {
     }
 
     const camelizedJson = camelizeKeys(data);
-    console.log('camelizedJson', camelizedJson);
+    // console.log('camelizedJson', camelizedJson);
 
     const results = { response: camelizedJson };
 

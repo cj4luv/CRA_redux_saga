@@ -1,11 +1,23 @@
 /* eslint-disable no-unused-vars */
 export function setCookie(cookieName, cookieValue, cookieExpire, cookiePath = '/') {
+  const d = new Date();
+  d.setTime(cookieExpire);
+
   let cookieText = `${escape(cookieName)}=${escape(cookieValue)}`;
-  cookieText += (cookieExpire ? `; EXPIRES=${cookieExpire.toGMTString()}` : '');
+  cookieText += (cookieExpire ? `; EXPIRES=${d.toGMTString()}` : '');
   cookieText += (cookiePath ? `; PATH=${cookiePath}` : '');
 
   document.cookie = cookieText;
 }
+
+// export function setCookie(cname, cvalue, exdays) {
+//   const d = new Date();
+//   const encodedValue = encodeURIComponent(cvalue);
+//   d.setTime(d.getTime() + (exdays * 60 * 60 * 1000));
+
+//   const expires = `expires=${d.toUTCString()}`;
+//   document.cookie = `${cname}=${encodedValue};${expires};path=/`;
+// }
 
 export function getCookie(cookieName) {
   let cookieValue = null;

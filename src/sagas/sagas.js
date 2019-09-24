@@ -18,33 +18,7 @@ import callApi from '../services/api';
 const { post, login } = actions;
 const TOKEN_COOKIE_NAME = 'usx_tk';
 
-/** *************************** APIs *********************************** */
-const getPostsApi = (apiInit) => callApi(apiInit);
-const putLoginApi = (apiInit) => callApi(apiInit);
-
-/** *************************** Subroutines *********************************** */
-
-/**
- * @param {object} entity - request, success, failure 액션을 담은 구조체
- * @param {function} apiFn - http call을 담당하는 함수
- * @param {object} apiInit - api init 정보를 담는 변수
- */
-function* fetchEntity(entity, apiFn, apiInit) {
-  // console.log('fetchEntity', entity);
-  yield put(entity.request(apiInit));
-  const { response, error } = yield call(apiFn, apiInit);
-
-  // console.log('response call =-==--', response);
-  if (response) {
-    // console.log('success');
-    yield delay(2000);
-    yield put(entity.success(apiInit, response));
-  } else yield put(entity.failure(apiInit, error));
-}
-
-// apiInit 3번째 매개 변수는 sgaa effects의 call이 호출 되는 부분에서 정의된다.
-const fetchPosts = fetchEntity.bind(null, post, getPostsApi);
-const fetchLogin = fetchEntity.bind(null, login, putLoginApi);
+/** *************************** Utils *********************************** */
 
 const decodeJwt = (jwt) => {
   const ca = jwt;
@@ -64,8 +38,46 @@ const isExpiredToken = (exp) => {
   return isExpired;
 };
 
+function updateTokenCookie(token) {
+  const jwtData = decodeJwt(token);
+  const timestamp = jwtData.exp * 1000;
+
+  setCookie(TOKEN_COOKIE_NAME, token, timestamp);
+}
+
+/** *************************** APIs *********************************** */
+const getPostsApi = (apiInit) => callApi(apiInit);
+const putLoginApi = (apiInit) => callApi(apiInit);
+
+/** *************************** Subroutines *********************************** */
+
+/**
+ * @param {object} entity - request, success, failure 액션을 담은 구조체
+ * @param {function} apiFn - http call을 담당하는 함수
+ * @param {object} apiInit - api init 정보를 담는 변수
+ */
+function* fetchEntity(entity, apiFn, apiInit) {
+  yield put(entity.request(apiInit));
+  const { response, error } = yield call(apiFn, apiInit);
+  const results = { response, error };
+
+  // console.log('results call =-==--', results);
+  if (response) {
+    yield delay(2000);
+    yield put(entity.success(apiInit, response));
+  } else {
+    yield put(entity.failure(apiInit, error));
+  }
+  return results;
+}
+
+// apiInit 3번째 매개 변수는 sgaa effects의 call이 호출 되는 부분에서 정의된다.
+const fetchPosts = fetchEntity.bind(null, post, getPostsApi);
+const fetchLogin = fetchEntity.bind(null, login, putLoginApi);
+
 function* loadAuth() {
-  const jwt = getCookie(TOKEN_COOKIE_NAME);
+  const token = getCookie(TOKEN_COOKIE_NAME);
+  const jwt = token || '';
 
   const apiInit = {
     method: 'PUT',
@@ -81,8 +93,11 @@ function* loadAuth() {
 
   console.log('apiinit', apiInit);
 
-  const res = yield call(fetchLogin, apiInit);
-  console.log('object!!!!!!!!!', res);
+  const { response } = yield call(fetchLogin, apiInit);
+
+  if (response) {
+    updateTokenCookie(response.refreshToken);
+  }
 }
 
 function* loadPosts() {
@@ -121,8 +136,7 @@ function* loadPosts() {
 
 export function* watchLoadAuth() {
   while (true) {
-    yield take(actions.LOAD_POSTS);
-    console.log('watchLoadAuth');
+    yield take(actions.LOAD_LOGIN);
 
     yield call(loadAuth);
   }
