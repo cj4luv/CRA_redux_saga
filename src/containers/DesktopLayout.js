@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Header } from '../components';
+import { LOAD_LOGIN, LOAD_POSTS } from '../actions';
 
 const Menu = ['가이드', '문서', '테마 & 패키지', 'UX 점검', '커뮤니티'];
 

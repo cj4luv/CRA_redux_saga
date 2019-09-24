@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     console.log('useEffect');
-    // dispatch({ type: LOAD_LOGIN });
+    dispatch({ type: LOAD_LOGIN });
     dispatch({ type: LOAD_POSTS });
   }, []);
 

@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import Maybe from './Maybe';
 
 const styels = {
   container: {
@@ -10,6 +12,8 @@ const styels = {
     boxSizing: 'border-box',
     alignItems: 'center',
     width: '100vw',
+    justifyContent: 'space-between',
+
   },
   logo: {
     width: 146,
@@ -18,6 +22,8 @@ const styels = {
   },
 };
 
+const isAuth = false;
+
 const Menu = ({ menu }) => menu.map((item) => <Button key={item} variant="info">{item}</Button>);
 
 const Header = ({ menu }) => (
@@ -25,7 +31,32 @@ const Header = ({ menu }) => (
     <Button>
       logo
     </Button>
-    <Menu menu={menu} />
+    <div>
+      <Menu menu={menu} />
+    </div>
+    <div>
+      <Maybe test={!isAuth}>
+        <Button variant="secondary">
+          로그인
+        </Button>
+      </Maybe>
+
+      <Maybe test={isAuth}>
+        <Button variant="secondary">
+          검색
+        </Button>
+        <Button variant="secondary">
+          알람
+        </Button>
+        <Button variant="secondary">
+          프로파일
+        </Button>
+      </Maybe>
+
+      <Button variant="light">
+        프로젝트 가기
+      </Button>
+    </div>
   </div>
 );
 
