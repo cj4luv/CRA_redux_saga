@@ -1,13 +1,7 @@
 import { combineReducers } from 'redux';
 
-import auth from './auth';
-import posts from './posts';
-import login from './login';
-import refreshTokne from './refreshTokne';
+import authentication from './authentication';
 
 export default () => combineReducers({
-  posts,
-  login,
-  refreshTokne,
-  auth,
+  authentication,
 });

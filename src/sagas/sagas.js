@@ -48,13 +48,10 @@ function* fetchEntity(entity, apiFn, apiInit) {
 }
 
 const {
-  post, login, refreshTokne, sucessAuth,
+  login, refreshTokne, sucessAuth,
 } = actions;
 
-// apiInit 3번째 매개 변수는 sgaa effects의 call이 호출 되는 부분에서 정의된다.
-const fetchAuth = fetchEntity.bind(null, refreshTokne, callApi);
 const fetchLogin = fetchEntity.bind(null, login, callApi);
-const fetchPosts = fetchEntity.bind(null, post, callApi);
 
 function* loadFefresToken() {
   const token = getCookie(REFESH_TOKEN_COOKIE_NAME);
@@ -70,7 +67,7 @@ function* loadFefresToken() {
     url: endpoints.authController.issueToken,
   };
 
-  const { response } = yield call(fetchAuth, apiInit);
+  const { response } = yield call(fetchEntity, refreshTokne, callApi, apiInit);
   if (response) {
     try {
       if (response.resultCode !== '20000000') throw response;
@@ -121,32 +118,6 @@ function* loadLogin() {
   }
 }
 
-function* loadPosts() {
-  // const token = 'eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJyb2xlIjoic3VwZXJBZG1pbiIsImRpc3BsYXlOYW1lIjoiKOyjvCnsl5DsnbTsuZjrgpjsnbgg7Iug7IOB7IStIiwibmFtZSI6IuyLoOyDgeyErSIsImV4cCI6MTU2OTU3ODQ4NSwidXNlcklkIjoic2FuZ3Nlb3Auc2hpbiIsImNvbXBOYW1lIjoiKOyjvCnsl5DsnbTsuZjrgpjsnbgiLCJ1c2VyU2VxIjo1LCJlbWFpbCI6InNhbmdzZW9wLnNoaW5AaDl3b3Jrcy5jb20ifQ.hUSo28QG4jG5qnpfjfddPnL4mNOuzVz2_vdyY799xok';
-  const token = getCookie(TOKEN_COOKIE_NAME);
-
-  const headers = {
-    jwt: token,
-  };
-
-  const params = {
-    boardType: 'bootstrap',
-  };
-
-  const apiInit = {
-    method: 'GET',
-    url: endpoints.posts,
-    headers,
-    params,
-  };
-
-  /**
-   * @param {function} fn - promise 펑션 (http call)
-   * @param {object} args - 첫번째 평선의 arguments로 들어간다.
-   */
-  yield call(fetchPosts, apiInit);
-}
-
 /** *************************************************************************** */
 /** ***************************** WATCHERS ************************************ */
 /** *************************************************************************** */
@@ -165,17 +136,9 @@ export function* watchLoadLogin() {
   }
 }
 
-export function* watchLoadPosts() {
-  while (true) {
-    yield take(actions.LOAD_POSTS);
-    yield fork(loadPosts);
-  }
-}
-
 export default function* rootSaga() {
   yield all([
     fork(watchLoadFefresToken),
     fork(watchLoadLogin),
-    fork(watchLoadPosts),
   ]);
 }

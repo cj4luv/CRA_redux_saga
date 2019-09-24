@@ -12,13 +12,12 @@ import { LOAD_REFRESH_TOKEN, LOAD_LOGIN } from '../actions';
 const Menu = ['가이드', '문서', '테마 & 패키지', 'UX 점검', '커뮤니티'];
 
 const DesktopLayout = ({ children }) => {
-  const authData = useSelector((state) => state.auth);
-  const { isAuth } = authData;
-
   const dispatch = useDispatch();
 
-  const refreshTokneData = useSelector((state) => state.refreshTokne);
-  const { isFetching, response, error } = refreshTokneData;
+  const refreshTokneData = useSelector((state) => state.authentication);
+  const {
+    isFetching, response, error, isAuth,
+  } = refreshTokneData;
 
   const isUseToken = vaildToken();
   console.log('isUseToken', isUseToken, isFetching);
