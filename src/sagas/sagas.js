@@ -72,7 +72,6 @@ function* loadFefresToken() {
 
   const { response } = yield call(fetchAuth, apiInit);
   if (response) {
-    console.log(response);
     try {
       if (response.resultCode !== '20000000') throw response;
 

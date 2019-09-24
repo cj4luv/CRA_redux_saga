@@ -21,7 +21,7 @@ const DesktopLayout = ({ children }) => {
   const { isFetching, response, error } = refreshTokneData;
 
   const isUseToken = vaildToken();
-  console.log(isUseToken);
+  console.log('isUseToken', isUseToken, isFetching);
 
   useEffect(() => {
     if (isUseToken) {
@@ -30,7 +30,6 @@ const DesktopLayout = ({ children }) => {
   }, []);
 
   const onLogin = () => {
-    console.log('object');
     dispatch({ type: LOAD_LOGIN });
   };
 
