@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { LOAD_LOGIN } from '../actions';
+import { LOAD_LOGIN, LOAD_POSTS } from '../actions';
 
 const styles = {
   topBox: {
@@ -15,16 +15,19 @@ const styles = {
 
 const Home = () => {
   const loginData = useSelector((state) => state.login);
+  const postsData = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('useEffect');
-    dispatch({ type: LOAD_LOGIN });
+    // dispatch({ type: LOAD_LOGIN });
+    dispatch({ type: LOAD_POSTS });
   }, []);
 
   const { isFetching, response, error } = loginData;
 
   console.log('login data', loginData);
+  console.log('post data', postsData);
 
   if (isFetching || !response) {
     console.log('loading....');
