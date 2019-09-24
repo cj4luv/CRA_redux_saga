@@ -1,4 +1,2 @@
-import * as _api from './api';
-
-const api = _api;
-export default api;
+export { default as request } from './request';
+export { default as endpoints } from './endpoints';

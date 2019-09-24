@@ -5,7 +5,7 @@ import { BASE_URL } from './endpoints';
 
 axios.defaults.baseURL = BASE_URL;
 
-async function callApi(axiosConfig) {
+async function request(axiosConfig) {
   try {
     const response = await axios(axiosConfig);
     const { data } = response;
@@ -26,4 +26,4 @@ async function callApi(axiosConfig) {
   }
 }
 
-export default callApi;
+export default request;
