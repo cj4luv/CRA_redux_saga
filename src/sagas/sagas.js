@@ -79,33 +79,34 @@ function* loadAuth() {
   const token = getCookie(TOKEN_COOKIE_NAME);
   const jwt = token || '';
 
+  const headers = {
+    jwt,
+  };
+
+  const params = {
+    userId: 'jaehun.cho',
+    password: 'Ruddls9257!',
+  };
+
   const apiInit = {
     method: 'PUT',
     url: endpoints.authController.login,
-    headers: {
-      jwt,
-    },
-    params: {
-      userId: 'jaehun.cho',
-      password: 'Ruddls9257!',
-    },
+    headers,
+    params,
   };
 
-  console.log('apiinit', apiInit);
-
   const { response } = yield call(fetchLogin, apiInit);
-
   if (response) {
     updateTokenCookie(response.refreshToken);
   }
 }
 
 function* loadPosts() {
-  const token = 'eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJyb2xlIjoic3VwZXJBZG1pbiIsImRpc3BsYXlOYW1lIjoiKOyjvCnsl5DsnbTsuZjrgpjsnbgg7Iug7IOB7IStIiwibmFtZSI6IuyLoOyDgeyErSIsImV4cCI6MTU2OTU3ODQ4NSwidXNlcklkIjoic2FuZ3Nlb3Auc2hpbiIsImNvbXBOYW1lIjoiKOyjvCnsl5DsnbTsuZjrgpjsnbgiLCJ1c2VyU2VxIjo1LCJlbWFpbCI6InNhbmdzZW9wLnNoaW5AaDl3b3Jrcy5jb20ifQ.hUSo28QG4jG5qnpfjfddPnL4mNOuzVz2_vdyY799xok';
+  // const token = 'eyJ0eXBlIjoiYWNjZXNzIiwiYWxnIjoiSFMyNTYifQ.eyJyb2xlIjoic3VwZXJBZG1pbiIsImRpc3BsYXlOYW1lIjoiKOyjvCnsl5DsnbTsuZjrgpjsnbgg7Iug7IOB7IStIiwibmFtZSI6IuyLoOyDgeyErSIsImV4cCI6MTU2OTU3ODQ4NSwidXNlcklkIjoic2FuZ3Nlb3Auc2hpbiIsImNvbXBOYW1lIjoiKOyjvCnsl5DsnbTsuZjrgpjsnbgiLCJ1c2VyU2VxIjo1LCJlbWFpbCI6InNhbmdzZW9wLnNoaW5AaDl3b3Jrcy5jb20ifQ.hUSo28QG4jG5qnpfjfddPnL4mNOuzVz2_vdyY799xok';
+  const token = getCookie(TOKEN_COOKIE_NAME);
 
   const jwtData = decodeJwt(token);
   const isExpired = isExpiredToken(jwtData.exp);
-
   console.log('isExpired', isExpired);
 
   const headers = {
