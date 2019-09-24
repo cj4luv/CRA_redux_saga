@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { LOAD_POSTS } from '../actions';
+import { LOAD_LOGIN, LOAD_POSTS } from '../actions';
 
 const styles = {
   topBox: {
@@ -14,19 +14,22 @@ const styles = {
 };
 
 const Home = () => {
+  const loginData = useSelector((state) => state.login);
   const postsData = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('useEffect');
+    dispatch({ type: LOAD_LOGIN });
     dispatch({ type: LOAD_POSTS });
   }, []);
 
-  const { isFetching, response, error } = postsData;
+  const { isFetching, response, error } = loginData;
 
+  console.log('login data', loginData);
   console.log('post data', postsData);
 
-  if (isFetching) {
+  if (isFetching || !response) {
     console.log('loading....');
     return (
       <div style={styles.topBox}>
@@ -35,18 +38,19 @@ const Home = () => {
     );
   }
 
-  if (error) {
-    console.log('err', error);
-    return <p>{error.message}</p>;
-  }
-
   const isEmptyData = response && response.boardList && response.boardList.length === 0;
-  if (isEmptyData) {
+  const isRenderEmpty = !isFetching && isEmptyData;
+  if (isRenderEmpty) {
     console.log('empty');
     return <div style={styles.topBox}>empty</div>;
   }
 
-  if (!response) return null;
+  const isRenderError = !isFetching && error;
+  if (isRenderError) {
+    console.log('error', error);
+
+    return <p>{error}</p>;
+  }
 
   const { boardList } = response;
 
@@ -57,12 +61,20 @@ const Home = () => {
     </div>
   );
 
-  const renderBoardList = boardList.map((item) => renderRow(item.boardSeq, item.title));
-  return (
-    <div style={styles.topBox}>
-      {renderBoardList}
-    </div>
-  );
+  try {
+    const renderBoardList = boardList.map((item) => renderRow(item.boardSeq, item.title));
+    return (
+      <div style={styles.topBox}>
+        {renderBoardList}
+      </div>
+    );
+  } catch {
+    return (
+      <div style={styles.topBox}>
+        {response.message}
+      </div>
+    );
+  }
 };
 
 export default Home;

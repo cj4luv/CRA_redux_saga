@@ -22,11 +22,9 @@ const styels = {
   },
 };
 
-const isAuth = false;
-
 const Menu = ({ menu }) => menu.map((item) => <Button key={item} variant="info">{item}</Button>);
 
-const Header = ({ menu }) => (
+const Header = ({ menu, isAuth, onLogin }) => (
   <div style={styels.container}>
     <Button>
       logo
@@ -36,7 +34,7 @@ const Header = ({ menu }) => (
     </div>
     <div>
       <Maybe test={!isAuth}>
-        <Button variant="secondary">
+        <Button variant="secondary" onClick={onLogin}>
           로그인
         </Button>
       </Maybe>

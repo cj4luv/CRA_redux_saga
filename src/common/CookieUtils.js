@@ -21,6 +21,7 @@ export function setCookie(cookieName, cookieValue, cookieExpire, cookiePath = '/
 
 export function getCookie(cookieName) {
   let cookieValue = null;
+
   if (document.cookie) {
     const array = document.cookie.split((`${escape(cookieName)}=`));
     if (array.length >= 2) {

@@ -17,6 +17,7 @@ import callApi from '../services/api';
 
 const { post, login } = actions;
 const TOKEN_COOKIE_NAME = 'usx_tk';
+const REFESH_TOKEN_COOKIE_NAME = 'usx_re_tk';
 
 /** *************************** Utils *********************************** */
 
@@ -38,16 +39,12 @@ const isExpiredToken = (exp) => {
   return isExpired;
 };
 
-function updateTokenCookie(token) {
+function updateTokenCookie(token, cookieName) {
   const jwtData = decodeJwt(token);
   const timestamp = jwtData.exp * 1000;
 
-  setCookie(TOKEN_COOKIE_NAME, token, timestamp);
+  setCookie(cookieName, token, timestamp);
 }
-
-/** *************************** APIs *********************************** */
-const getPostsApi = (apiInit) => callApi(apiInit);
-const putLoginApi = (apiInit) => callApi(apiInit);
 
 /** *************************** Subroutines *********************************** */
 
@@ -72,10 +69,36 @@ function* fetchEntity(entity, apiFn, apiInit) {
 }
 
 // apiInit 3번째 매개 변수는 sgaa effects의 call이 호출 되는 부분에서 정의된다.
-const fetchPosts = fetchEntity.bind(null, post, getPostsApi);
-const fetchLogin = fetchEntity.bind(null, login, putLoginApi);
+const fetchAuth = fetchEntity.bind(null, login, callApi);
+const fetchLogin = fetchEntity.bind(null, login, callApi);
+const fetchPosts = fetchEntity.bind(null, post, callApi);
 
 function* loadAuth() {
+  const token = getCookie(REFESH_TOKEN_COOKIE_NAME);
+  const jwt = token || '';
+
+  const isJwt = !!jwt;
+
+  const headers = {
+    jwt,
+  };
+
+  const apiInit = {
+    method: 'PUT',
+    headers,
+    url: endpoints.authController.issueToken,
+  };
+
+  const { response } = yield call(fetchAuth, apiInit);
+  console.log('loadAuth', response);
+  if (response) {
+    console.log(response);
+    updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
+    updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
+  }
+}
+
+function* loadLogin() {
   const token = getCookie(TOKEN_COOKIE_NAME);
   const jwt = token || '';
 
@@ -97,7 +120,9 @@ function* loadAuth() {
 
   const { response } = yield call(fetchLogin, apiInit);
   if (response) {
-    updateTokenCookie(response.refreshToken);
+    console.log(response);
+    updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
+    updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
   }
 }
 
@@ -106,9 +131,9 @@ function* loadPosts() {
   const token = getCookie(TOKEN_COOKIE_NAME);
   // console.log('loadPosts token ----------', token);
 
-  const jwtData = decodeJwt(token);
-  const isExpired = isExpiredToken(jwtData.exp);
-  console.log('isExpired', isExpired);
+  // const jwtData = decodeJwt(token);
+  // const isExpired = isExpiredToken(jwtData.exp);
+  // console.log('isExpired', isExpired);
 
   const headers = {
     jwt: token,
@@ -138,9 +163,17 @@ function* loadPosts() {
 
 export function* watchLoadAuth() {
   while (true) {
-    yield take(actions.LOAD_LOGIN);
+    yield take(actions.LOAD_AUTH);
 
     yield call(loadAuth);
+  }
+}
+
+export function* watchLoadLogin() {
+  while (true) {
+    yield take(actions.LOAD_LOGIN);
+
+    yield call(loadLogin);
   }
 }
 
@@ -155,7 +188,8 @@ export function* watchLoadPosts() {
 
 export default function* rootSaga() {
   yield all([
-    fork(watchLoadPosts),
     fork(watchLoadAuth),
+    fork(watchLoadLogin),
+    fork(watchLoadPosts),
   ]);
 }
