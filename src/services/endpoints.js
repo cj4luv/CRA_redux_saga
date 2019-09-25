@@ -10,6 +10,9 @@ const endpoints = {
     login: '/auth/login.do',
     issueToken: '/auth/issueToken.do',
   },
+  alimController: {
+    getBadgeDisplay: '/landing/alim/getBadgeDisplay.do',
+  },
   posts: '/landing/board/getBoardList.do',
 };
 

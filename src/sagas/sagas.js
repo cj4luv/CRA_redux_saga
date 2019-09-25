@@ -6,6 +6,7 @@ import {
   take,
   put,
   delay,
+  select,
 } from 'redux-saga/effects';
 
 import { getCookie } from '../common/CookieUtils';
@@ -14,7 +15,9 @@ import { TOKEN_COOKIE_NAME, REFESH_TOKEN_COOKIE_NAME } from '../common/Constants
 import * as actions from '../actions';
 import { endpoints, request } from '../services';
 
-const { login, refreshTokne } = actions;
+import { getAuthentication } from '../reducers/selectors';
+
+const { login, refreshToken, badgeDisplay } = actions;
 
 /** *************************** Api *********************************** */
 
@@ -32,22 +35,17 @@ const putIssueToken = () => {
     url: endpoints.authController.issueToken,
   };
 
-  const results = fetchEntity.bind(null, refreshTokne, request, apiInit);
+  const results = fetchEntity.bind(null, refreshToken, request, apiInit);
 
   return results;
 };
 
-const putLogin = () => {
+const putLogin = (params) => {
   const token = getCookie(TOKEN_COOKIE_NAME);
   const jwt = token || '';
 
   const headers = {
     jwt,
-  };
-
-  const params = {
-    userId: 'jaehun.cho',
-    password: 'Ruddls9257!',
   };
 
   const apiInit = {
@@ -91,7 +89,11 @@ function* fetchRefresToken() {
 }
 
 function* fetchLogin() {
-  const api = putLogin();
+  const params = yield select(getAuthentication);
+
+  console.log(params);
+
+  const api = putLogin(params);
   yield call(api);
 }
 

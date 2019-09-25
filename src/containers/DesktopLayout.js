@@ -9,7 +9,7 @@ import { vaildToken, updateTokenCookie } from '../common/AuthenticationUtils';
 import { TOKEN_COOKIE_NAME, REFESH_TOKEN_COOKIE_NAME } from '../common/Constants';
 
 import { Header } from '../components';
-import { LOAD_REFRESH_TOKEN, LOAD_LOGIN } from '../actions';
+import { LOAD_REFRESH_TOKEN, loadLogin } from '../actions';
 
 const Menu = ['가이드', '문서', '테마 & 패키지', 'UX 점검', '커뮤니티'];
 
@@ -45,7 +45,12 @@ const DesktopLayout = ({ children }) => {
   }, []);
 
   const onLogin = () => {
-    dispatch({ type: LOAD_LOGIN });
+    const loginData = {
+      userId: 'jaehun.cho',
+      password: 'Ruddls9257!',
+    };
+
+    dispatch(loadLogin(loginData));
   };
 
   const isAuth = getAuthenticate(response);

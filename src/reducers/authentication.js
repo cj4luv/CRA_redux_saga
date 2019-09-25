@@ -15,7 +15,7 @@ const initialState = {
   isFetching: false,
   response: null,
   error: null,
-  isAuth: false,
+  params: null,
 };
 
 export default function authentication(state = initialState, action) {
@@ -23,7 +23,7 @@ export default function authentication(state = initialState, action) {
     case LOAD_LOGIN:
       return {
         ...state,
-        ...action.login,
+        params: action.params,
       };
     case LOGIN_REQUEST:
       return {
