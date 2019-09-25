@@ -7,7 +7,6 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAILURE,
-  SUCCESS_AUTH,
 } from '../actions/actions';
 
 // **** 초기상태 정의
@@ -21,11 +20,6 @@ const initialState = {
 
 export default function authentication(state = initialState, action) {
   switch (action.type) {
-    case SUCCESS_AUTH:
-      return {
-        ...state,
-        isAuth: true,
-      };
     case LOAD_LOGIN:
       return {
         ...state,

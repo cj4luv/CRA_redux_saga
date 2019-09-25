@@ -10,15 +10,6 @@ export function setCookie(cookieName, cookieValue, cookieExpire, cookiePath = '/
   document.cookie = cookieText;
 }
 
-// export function setCookie(cname, cvalue, exdays) {
-//   const d = new Date();
-//   const encodedValue = encodeURIComponent(cvalue);
-//   d.setTime(d.getTime() + (exdays * 60 * 60 * 1000));
-
-//   const expires = `expires=${d.toUTCString()}`;
-//   document.cookie = `${cname}=${encodedValue};${expires};path=/`;
-// }
-
 export function getCookie(cookieName) {
   let cookieValue = null;
 
@@ -39,3 +30,12 @@ export function deleteCookie(cookieName) {
     setCookie(cookieName, temp, (d));
   }
 }
+
+// export function setCookie(cname, cvalue, exdays) {
+//   const d = new Date();
+//   const encodedValue = encodeURIComponent(cvalue);
+//   d.setTime(d.getTime() + (exdays * 60 * 60 * 1000));
+
+//   const expires = `expires=${d.toUTCString()}`;
+//   document.cookie = `${cname}=${encodedValue};${expires};path=/`;
+// }

@@ -4,20 +4,37 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { vaildToken } from '../common/AuthenticationUtils';
+import { vaildToken, updateTokenCookie } from '../common/AuthenticationUtils';
+import { TOKEN_COOKIE_NAME, REFESH_TOKEN_COOKIE_NAME } from '../common/Constants';
 
 import { Header } from '../components';
 import { LOAD_REFRESH_TOKEN, LOAD_LOGIN } from '../actions';
 
 const Menu = ['가이드', '문서', '테마 & 패키지', 'UX 점검', '커뮤니티'];
 
+const getAuthRoutine = (response) => {
+  console.log('getAuthRoutine', response);
+  if (!response) return false;
+
+  const isException = response.resultCode !== '20000000';
+  try {
+    if (isException) throw response;
+
+    updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
+    updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
+
+    return true;
+  } catch (e) {
+    console.log(e.message);
+    return false;
+  }
+};
+
 const DesktopLayout = ({ children }) => {
   const dispatch = useDispatch();
 
   const refreshTokneData = useSelector((state) => state.authentication);
-  const {
-    isFetching, response, error, isAuth,
-  } = refreshTokneData;
+  const { isFetching, response } = refreshTokneData;
 
   const isUseToken = vaildToken();
   console.log('isUseToken', isUseToken, isFetching);
@@ -31,6 +48,10 @@ const DesktopLayout = ({ children }) => {
   const onLogin = () => {
     dispatch({ type: LOAD_LOGIN });
   };
+
+  const isAuth = getAuthRoutine(response);
+
+  console.log('isAuth', isAuth);
 
   return (
     <div style={DefaultWrapper}>

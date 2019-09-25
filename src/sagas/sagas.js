@@ -8,46 +8,15 @@ import {
   delay,
 } from 'redux-saga/effects';
 
-import { setCookie, getCookie, deleteCookie } from '../common/CookieUtils';
-import { decodeJwt } from '../common/AuthenticationUtils';
+import { getCookie } from '../common/CookieUtils';
 import { TOKEN_COOKIE_NAME, REFESH_TOKEN_COOKIE_NAME } from '../common/Constants';
 
 import * as actions from '../actions';
 import { endpoints, request } from '../services';
 
-const { login, refreshTokne, sucessAuth } = actions;
+const { login, refreshTokne } = actions;
 
-/** *************************** Utils *********************************** */
-
-function updateTokenCookie(token, cookieName) {
-  const jwtData = decodeJwt(token);
-  const timestamp = jwtData.exp * 1000;
-
-  setCookie(cookieName, token, timestamp);
-}
-
-/**
- * @param {object} entity - request, success, failure 액션을 담은 구조체
- * @param {function} apiFn - http call을 담당하는 함수
- * @param {object} apiInit - api init 정보를 담는 변수
- */
-function* fetchEntity(entity, apiFn, apiInit) {
-  yield put(entity.request(apiInit));
-
-  const { response, error } = yield call(apiFn, apiInit);
-  const results = { response, error };
-
-  // console.log('results call =----->', results);
-  if (response) {
-    yield delay(1000);
-    yield put(entity.success(apiInit, response));
-  } else {
-    yield put(entity.failure(apiInit, error));
-  }
-  return results;
-}
-
-/** *************************** api *********************************** */
+/** *************************** Api *********************************** */
 
 const putIssueToken = () => {
   const token = getCookie(REFESH_TOKEN_COOKIE_NAME);
@@ -95,42 +64,35 @@ const putLogin = () => {
 
 /** *************************** Subroutines *********************************** */
 
+/**
+ * @param {object} entity - request, success, failure 액션을 담은 구조체
+ * @param {function} apiFn - http call을 담당하는 함수
+ * @param {object} apiInit - api init 정보를 담는 변수
+ */
+function* fetchEntity(entity, apiFn, apiInit) {
+  yield put(entity.request(apiInit));
+
+  const { response, error } = yield call(apiFn, apiInit);
+  const results = { response, error };
+
+  // console.log('results call =----->', results);
+  if (response) {
+    yield delay(1000);
+    yield put(entity.success(apiInit, response));
+  } else {
+    yield put(entity.failure(apiInit, error));
+  }
+  return results;
+}
+
 function* fetchRefresToken() {
   const api = putIssueToken();
-
-  const { response } = yield call(api);
-
-  if (response) {
-    try {
-      if (response.resultCode !== '20000000') throw response;
-
-      updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
-      updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
-
-      yield put(sucessAuth);
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
+  yield call(api);
 }
 
 function* fetchLogin() {
   const api = putLogin();
-
-  const { response } = yield call(api);
-  if (response) {
-    console.log('loadLogin', response);
-    try {
-      if (response.resultCode !== '20000000') throw response;
-
-      updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
-      updateTokenCookie(response.refreshToken, REFESH_TOKEN_COOKIE_NAME);
-
-      yield put(sucessAuth);
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
+  yield call(api);
 }
 
 /** *************************************************************************** */

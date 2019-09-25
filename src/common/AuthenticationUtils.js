@@ -1,4 +1,4 @@
-import { getCookie } from './CookieUtils';
+import { getCookie, setCookie } from './CookieUtils';
 import { REFESH_TOKEN_COOKIE_NAME } from './Constants';
 
 export const decodeJwt = (jwt) => {
@@ -37,3 +37,10 @@ export const vaildToken = () => {
     return false;
   }
 };
+
+export function updateTokenCookie(token, cookieName) {
+  const jwtData = decodeJwt(token);
+  const timestamp = jwtData.exp * 1000;
+
+  setCookie(cookieName, token, timestamp);
+}
