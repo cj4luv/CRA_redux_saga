@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import Maybe from './Maybe';
 
 const styels = {
@@ -24,7 +24,9 @@ const styels = {
 
 const Menu = ({ menu }) => menu.map((item) => <Button key={item} variant="info">{item}</Button>);
 
-const Header = ({ menu, isAuth, onLogin }) => (
+const Header = ({
+  menu, isAuth, onLogin, isFetching,
+}) => (
   <div style={styels.container}>
     <Button>
       logo
@@ -34,8 +36,13 @@ const Header = ({ menu, isAuth, onLogin }) => (
     </div>
     <div>
       <Maybe test={!isAuth}>
-        <Button variant="secondary" onClick={onLogin}>
-          로그인
+        <Button variant="danger" onClick={!isFetching ? onLogin : null}>
+          <Maybe test={isFetching}>
+            <Spinner animation="border" variant="primary" />
+          </Maybe>
+          <Maybe test={!isFetching}>
+            로그인
+          </Maybe>
         </Button>
       </Maybe>
 

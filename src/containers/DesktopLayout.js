@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -12,12 +13,10 @@ import { LOAD_REFRESH_TOKEN, LOAD_LOGIN } from '../actions';
 
 const Menu = ['가이드', '문서', '테마 & 패키지', 'UX 점검', '커뮤니티'];
 
-const getAuthRoutine = (response) => {
-  console.log('getAuthRoutine', response);
+const getAuthenticate = (response) => {
   if (!response) return false;
-
-  const isException = response.resultCode !== '20000000';
   try {
+    const isException = response.resultCode !== '20000000';
     if (isException) throw response;
 
     updateTokenCookie(response.accessToken, TOKEN_COOKIE_NAME);
@@ -49,15 +48,21 @@ const DesktopLayout = ({ children }) => {
     dispatch({ type: LOAD_LOGIN });
   };
 
-  const isAuth = getAuthRoutine(response);
-
+  const isAuth = getAuthenticate(response);
   console.log('isAuth', isAuth);
+
+  const IHeaderProps = {
+    menu: Menu,
+    isAuth,
+    onLogin,
+    isFetching,
+  };
 
   return (
     <div style={DefaultWrapper}>
 
       <div style={TopWarpper}>
-        <Header menu={Menu} isAuth={isAuth} onLogin={onLogin} />
+        <Header {...IHeaderProps} />
       </div>
 
       <div style={BottomWrapper}>
